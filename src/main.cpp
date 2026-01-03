@@ -110,19 +110,20 @@ int main(){
     string reverse_compl = reverse_complement(seq, seq_len);
 
     
-    cout<<"\n\nAdenine: "<<nucleotide_count['A']<<"("<<A_percent<<"%)"<<endl;
-    cout<<"Guanine: "<<nucleotide_count['G']<<"("<<G_percent<<"%)"<<endl;
-    cout<<"Cytosine: "<<nucleotide_count['C']<<"("<<C_percent<<"%)"<<endl;
-    cout<<"Thymine: "<<nucleotide_count['T']<<"("<<T_percent<<"%)"<<endl;
-    cout<<"Total Base Pairs: "<<seq_len<<endl;
+    ofstream file("seq_analysis.txt", ios::app);
+    file<<"\n\nAdenine: "<<nucleotide_count['A']<<"("<<A_percent<<"%)"<<endl;
+    file<<"Guanine: "<<nucleotide_count['G']<<"("<<G_percent<<"%)"<<endl;
+    file<<"Cytosine: "<<nucleotide_count['C']<<"("<<C_percent<<"%)"<<endl;
+    file<<"Thymine: "<<nucleotide_count['T']<<"("<<T_percent<<"%)"<<endl;
+    file<<"Total Base Pairs: "<<seq_len<<endl;
 
     // GC Content
-    cout<<"\nGC Content: "<<nucleotide_count['G']+nucleotide_count['C']<<"("<<G_percent+C_percent<<"%)"<<endl;
-    cout<<"AT Skew: "<<AT_skew<<endl;
-    cout<<"GC Skew: "<<GC_skew<<endl;
+    file<<"\nGC Content: "<<nucleotide_count['G']+nucleotide_count['C']<<"("<<G_percent+C_percent<<"%)"<<endl;
+    file<<"AT Skew: "<<AT_skew<<endl;
+    file<<"GC Skew: "<<GC_skew<<endl;
 
-    cout<<"\n\nReverse Complement: ";
-    cout<<reverse_compl<<endl;
+    file<<"\n\nReverse Complement: "<<reverse_compl<<"\n";
+    file.close();
     
 
 
