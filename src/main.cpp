@@ -7,29 +7,20 @@
 using namespace std;
 
 //Input Pipeline
-string input_pipeline(int option){
+string input_pipeline(){
     string seq_="", line;
-    if (option==1){
-        string filename;
-        cout<<"Enter the Exact File Name With Extension: ";
-        cin>>filename;
-        ifstream inputFile(filename);
-        while(getline(inputFile, line)){
-            if (!line.empty() && line.back() == '\r') {
-                line.pop_back();
-            }
-            seq_ += line;
+    string filename;
+    cout<<"Enter the File Name/Path: ";
+    cin>>filename;
+    ifstream inputFile(filename);
+    while(getline(inputFile, line)){
+        if (!line.empty() && line.back() == '\r') {
+            line.pop_back();
         }
-        inputFile.close();
-        return seq_;
+        seq_ += line;
     }
-    else if(option==2){
-        while(getline(cin, line)){
-            seq_ += line;
-        }
-        return seq_;
-    }
-    return "";
+    inputFile.close();
+    return seq_;
 }
 
 
@@ -78,20 +69,7 @@ float skew_counter(int n1=0, int n2=0){
 
 int main(){
 
-    cout<<"\n\n=====================DNA Sequence Analyzer=====================\n\n";
-    cout<<"Choose the Option:\n1. Input Fasta File\n2. Input Sequence Manually\n";
-    cout<<"Option: ";
-
-    int option;
-    cin>>option;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    if(option!=1 && option!=2){
-        cerr<<"Enter Valid Input\n";
-        return 1;
-    }
-
-    string seq = input_pipeline(option);
+    string seq = input_pipeline();
     int seq_len = seq.length();
     // cout<<seq<<endl;
     
@@ -109,8 +87,10 @@ int main(){
 
     string reverse_compl = reverse_complement(seq, seq_len);
 
-    
-    ofstream file("seq_analysis.txt", ios::app);
+    string output;
+    cout<<"Enter the Output File Name/Path: ";
+    cin>>output;
+    ofstream file(output, ios::app);
     file<<"\n\nAdenine: "<<nucleotide_count['A']<<"("<<A_percent<<"%)"<<endl;
     file<<"Guanine: "<<nucleotide_count['G']<<"("<<G_percent<<"%)"<<endl;
     file<<"Cytosine: "<<nucleotide_count['C']<<"("<<C_percent<<"%)"<<endl;
